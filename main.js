@@ -1,40 +1,34 @@
-// const randWidth = Math.floor(Math.random() * 1000)
-// const randHeigth = Math.floor(Math.random() * 800)
-// const randColor = Math.floor(Math.random() * 999999)
 let level = 0
 let cleanTimer
 const colors = ['#ee3e3e', '#3e52f0', '#ef3ef0', '#f0ed3e', '#1e945f']
-const width = $('.main').width() - 100
-const height = $('.main').height() - 100
-
-function randomInteger (min, max) {
-  return Math.floor(Math.random() * (max - min + 1)) + min
-}
+const width = $('.main').width() 
+const height = $('.main').height() 
 
 const generateFrog = function () {
   const $frog = $(`<div class='frog'><i class="fas fa-virus"></i></div>`)
   const randWidth = Math.floor(Math.random() * width)
   const randHeigth = Math.floor(Math.random() * height)
   const randColor = Math.floor(Math.random() * colors.length)
-  const size = randomInteger(25, 82)
+  const size = Math.max(20, randHeigth * 100 / height)
 
   $('.main').append($frog)
 
   $frog.css('font-size', `${size}px`)
-  $frog.css("top", `${randHeigth}px`)
-  $frog.css("left", `${randWidth}px`)
+  $frog.css("top", `${randHeigth - size}px`)
+  $frog.css("left", `${Math.max(randWidth - 82, 82)}px`)
   $frog.css('color', `${colors[randColor]}`)
 
   return $frog
 }
 
-
 const timer = function () {
-  let sec = level + 1
+  let sec = level 
   const cc = () => {
     $('.secondsLeft').remove()
     $('.timer').append(`<p class="secondsLeft"> ${sec--} seconds left</p>`)
+    $('.secondsLeft').css('color', sec < 3 ? 'red' : 'black')
   }
+
   cc()
   // повторить с интервалом 1 секунды
   const timerId = setInterval(cc, 1000)
@@ -49,9 +43,7 @@ const timer = function () {
     $('.playBTN').remove()
     const $gametext = $(`<p class='playBTN'>Play Game!</p>`)
     $('.catch').append($gametext)
-
-  }, ((level + 1) * 1000))
-
+  }, level * 1000)
 
   return () => {
     clearTimeout(timeOutId)
@@ -60,8 +52,6 @@ const timer = function () {
 
 }
 
-
-/////////////////first click on play 
 $('.catch').on('click', function () {
   $('.playBTN').remove()
   const $gametext = $(`<p class='playBTN'>Catch the corona!</p>`)
@@ -70,14 +60,11 @@ $('.catch').on('click', function () {
   $('.endGame').remove()
  
   level = 0
-  generateFrog()
+  nextLevel()
+
+  // unique
   $('.frog').css('font-size', `82px`)
-  $('.levelNmbr').remove()
-  $('.level').append($(`<p class='levelNmbr'>Level: ${level + 1}</p>`))
   $('.frogsLeftCount').remove()
-  $('.frogsLeft').append($(`<p class='frogsLeftCount'>Coronas Left: 1</p>`)) 
-  ////reboot timer()
-  cleanTimer = timer()
  
 })
 
@@ -90,28 +77,33 @@ $('.main').on('click', '.frog', function () {
   const shouldGoNextLevel = frogCount === 0 //true or false
 
   if (shouldGoNextLevel) {
-    cleanTimer()
-    level++
-    
-    if (level === 10) {
-      $('.main').append(`<div class="endGame">Good game!</div>`)
-      $('.secondsLeft').remove()
-      $('.playBTN').remove()
-      const $gametext = $(`<p class='playBTN'>Play Again!</p>`)
-      $('.catch').append($gametext)
-    } else {
-      cleanTimer = timer()
-      for (let i = 0; i < level + 1; i++) {
-        generateFrog() 
-   
-      }
-      
-      $('.levelNmbr').remove()
-      $('.level').append($(`<p class='levelNmbr'>Level: ${level + 1}</p>`))
-      $('.frogsLeft').append($(`<p class='frogsLeftCount'>Coronas Left: ${$('.frog').length} </p>`))
-    } 
+    nextLevel()
   } else {
     $('.frogsLeft').append($(`<p class='frogsLeftCount'>Coronas Left: ${frogCount} </p>`))
   } 
 })
 
+function nextLevel () {
+  level++
+  if (cleanTimer) {
+    cleanTimer()
+  }
+
+  if (level === 10) {
+    $('.main').append(`<div class="endGame">Good game!</div>`)
+    $('.secondsLeft').remove()
+    $('.playBTN').remove()
+    const $gametext = $(`<p class='playBTN'>Play Again!</p>`)
+    $('.catch').append($gametext)
+  } else {
+    cleanTimer = timer()
+    $('.secondsLeft').css('color', 'yellow')
+    for (let i = 1; i < level + 1; i++) {
+      generateFrog() 
+    }
+    
+    $('.levelNmbr').remove()
+    $('.level').append($(`<p class='levelNmbr'>Level: ${level}</p>`))
+    $('.frogsLeft').append($(`<p class='frogsLeftCount'>Coronas Left: ${$('.frog').length} </p>`))
+  }
+}
