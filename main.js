@@ -4,14 +4,17 @@
 let level = 0
 let cleanTimer
 const colors = ['#ee3e3e', '#3e52f0', '#ef3ef0', '#f0ed3e', '#1e945f']
+const width = $('.main').width() - 100
+const height = $('.main').height() - 100
+
 function randomInteger (min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min
 }
 
 const generateFrog = function () {
   const $frog = $(`<div class='frog'><i class="fas fa-virus"></i></div>`)
-  const randWidth = Math.floor(Math.random() * 900)
-  const randHeigth = Math.floor(Math.random() * 600)
+  const randWidth = Math.floor(Math.random() * width)
+  const randHeigth = Math.floor(Math.random() * height)
   const randColor = Math.floor(Math.random() * colors.length)
   const size = randomInteger(25, 82)
 
@@ -34,16 +37,20 @@ const timer = function () {
   }
   cc()
   // повторить с интервалом 1 секунды
-  const timerId = setInterval(cc, 2000)
+  const timerId = setInterval(cc, 1000)
  
   // остановить вывод через 5 секунд
   const timeOutId = setTimeout(() => {
     clearInterval(timerId) 
     $('.secondsLeft').remove()
     $('.frog').remove()
-    $('.timer').append(`<p class="secondsLeft"> time out!</p>`)
-    $('.main').append(`<div class="endGame">Game over, looser!</div>`)
-  }, ((level + 1) * 2000))
+    $('.timer').append(`<p class="secondsLeft"> Time out!</p>`)
+    $('.main').append(`<div class="endGame">Game over!</div>`)
+    $('.playBTN').remove()
+    const $gametext = $(`<p class='playBTN'>Play Game!</p>`)
+    $('.catch').append($gametext)
+
+  }, ((level + 1) * 1000))
 
 
   return () => {
@@ -86,9 +93,12 @@ $('.main').on('click', '.frog', function () {
     cleanTimer()
     level++
     
-    if (level === 5) {
+    if (level === 10) {
       $('.main').append(`<div class="endGame">Good game!</div>`)
       $('.secondsLeft').remove()
+      $('.playBTN').remove()
+      const $gametext = $(`<p class='playBTN'>Play Again!</p>`)
+      $('.catch').append($gametext)
     } else {
       cleanTimer = timer()
       for (let i = 0; i < level + 1; i++) {
@@ -101,7 +111,7 @@ $('.main').on('click', '.frog', function () {
       $('.frogsLeft').append($(`<p class='frogsLeftCount'>Coronas Left: ${$('.frog').length} </p>`))
     } 
   } else {
-    $('.frogsLeft').append($(`<p class='frogsLeftCount'>Frogs Left: ${frogCount} </p>`))
+    $('.frogsLeft').append($(`<p class='frogsLeftCount'>Coronas Left: ${frogCount} </p>`))
   } 
 })
 

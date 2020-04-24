@@ -1,8 +1,7 @@
 .gameWindow {
   display: grid;
-  grid-template-rows: 1fr 15fr 3fr;
-  height: 800px;
-  width: 1000px;
+  grid-template-rows: 1fr 15fr 1fr;
+  height: 100%;
   font-family: 'Gloria Hallelujah', cursive;
   font-size: 24px;
 }
@@ -25,6 +24,9 @@
 .main {
   background-color: darkgreen;
   position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -34,6 +36,9 @@
   cursor: pointer;
   /* height: 100%; */
   background-color: slateblue;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 
@@ -42,8 +47,14 @@
 }
 
 .endGame {
-    position: absolute;
-    top: 271px;
-    left: 348px;
     font-size: 38px;
+}
+
+body {
+    margin: 0;
+    height: 100vh;
+}
+
+p.secondsLeft {
+    margin: 0;
 }
