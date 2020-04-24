@@ -1,0 +1,49 @@
+.gameWindow {
+  display: grid;
+  grid-template-rows: 1fr 15fr 3fr;
+  height: 800px;
+  width: 1000px;
+  font-family: 'Gloria Hallelujah', cursive;
+  font-size: 24px;
+}
+
+.buttons {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  background-color: green;
+  justify-items: center;
+  align-content: center;
+}
+
+.timer {
+  background-color: green;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  background-color: darkgreen;
+  position: relative;
+}
+
+
+
+.catch {
+  width: 100%;
+  cursor: pointer;
+  /* height: 100%; */
+  background-color: slateblue;
+}
+
+
+.frog {
+  position: absolute;
+}
+
+.endGame {
+    position: absolute;
+    top: 271px;
+    left: 348px;
+    font-size: 38px;
+}
