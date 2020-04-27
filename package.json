@@ -1,0 +1,23 @@
+{
+  "name": "catch-a-the",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.html",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "review": "node node_modules/elevation-pr/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Adelson1606/Catch-a-The.git"
+  },
+  "author": "Veronika Adelson",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Adelson1606/Catch-a-The/issues"
+  },
+  "homepage": "https://github.com/Adelson1606/Catch-a-The#readme",
+  "dependencies": {
+    "elevation-pr": "^1.2.0"
+  }
+}
