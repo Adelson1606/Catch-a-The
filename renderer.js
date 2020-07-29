@@ -1,27 +1,32 @@
-let level = 0
-let cleanTimer
-const colors = ['#ee3e3e', '#3e52f0', '#ef3ef0', '#f0ed3e', '#1e945f']
-const width = $('.main').width() 
-const height = $('.main').height() 
+function Renderer () {
+  return {
+    generateFrog,
+    timer,
+    nextLevel
 
-const generateFrog = function () {
+  }
+}
+
+function generateFrog () {
   const $frog = $(`<div class='frog'><i class="fas fa-virus"></i></div>`)
   const randWidth = Math.floor(Math.random() * width)
   const randHeigth = Math.floor(Math.random() * height)
   const randColor = Math.floor(Math.random() * colors.length)
   const size = Math.max(20, randHeigth * 100 / height)
-
+  
   $('.main').append($frog)
-
+  
   $frog.css('font-size', `${size}px`)
   $frog.css("top", `${randHeigth - size}px`)
   $frog.css("left", `${Math.max(randWidth - 82, 82)}px`)
   $frog.css('color', `${colors[randColor]}`)
-
+  
   return $frog
+
 }
 
-const timer = function () {
+
+function timer () {
   let sec = level 
   const cc = () => {
     $('.secondsLeft').remove()
@@ -51,37 +56,6 @@ const timer = function () {
   }
 
 }
-
-$('.catch').on('click', function () {
-  $('.playBTN').remove()
-  const $gametext = $(`<p class='playBTN'>Catch the corona!</p>`)
-  $('.catch').append($gametext)
-  $('.frog').remove()
-  $('.endGame').remove()
- 
-  level = 0
-  nextLevel()
-
-  // unique
-  $('.frog').css('font-size', `82px`)
-  $('.frogsLeftCount').remove()
- 
-})
-
-$('.main').on('click', '.frog', function () {
-  $(this).remove() 
-  $('.frogsLeftCount').remove()
-
-  const $frogs = $('.frog')
-  const frogCount = $frogs.length
-  const shouldGoNextLevel = frogCount === 0 //true or false
-
-  if (shouldGoNextLevel) {
-   nextLevel()
-  } else {
-    $('.frogsLeft').append($(`<p class='frogsLeftCount'>Coronas Left: ${frogCount} </p>`))
-  } 
-})
 
 function nextLevel () {
   level++

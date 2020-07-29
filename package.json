@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/Adelson1606/Catch-a-The#readme",
   "dependencies": {
-    "elevation-pr": "^1.2.0"
+    "elevation-pr": "^1.2.0",
+    "jquery": "^3.5.1"
   }
 }
